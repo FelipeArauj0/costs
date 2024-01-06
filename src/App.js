@@ -11,6 +11,7 @@ import NavBar from './componentes/layout/NavBar';
 import Footer from './componentes/layout/Footer';
 
 import Projetos from './componentes/pages/Projetos';
+import Projeto from './componentes/pages/Projeto';
 
 function App() {
   return (
@@ -40,6 +41,11 @@ function App() {
         <Route path='/novoprojeto' element={
           <Container customClass="min-height">
             <NovoProjeto/>
+          </Container>}
+        />
+        <Route path='/projeto/:id' element={
+          <Container customClass="min-height">
+            <Projeto/>
           </Container>}
         />
       </Routes>

@@ -1,0 +1,37 @@
+{
+  "projetos": [
+    {
+      "name": "Meu novo projeto teste",
+      "budget": "1500",
+      "categories": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "costs": 0,
+      "servicos": [],
+      "id": 1
+    }
+  ],
+  "categorias": [
+    {
+      "id": 1,
+      "name": "Infra"
+    },
+    {
+      "id": 2,
+      "name": "Desenvolvimento"
+    },
+    {
+      "id": 3,
+      "name": "Design"
+    },
+    {
+      "id": 4,
+      "name": "Planejamento"
+    },
+    {
+      "id": 5,
+      "name": "Teste"
+    }
+  ]
+}
