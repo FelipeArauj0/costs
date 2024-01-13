@@ -12,45 +12,25 @@ import Footer from './componentes/layout/Footer';
 
 import Projetos from './componentes/pages/Projetos';
 import Projeto from './componentes/pages/Projeto';
+import Login from './componentes/layout/Login';
 
 function App() {
   return (
-    <Router>
-      <NavBar/>
-      <Routes>
-        <Route path='/' element={
-          <Container customClass="min-height">
-            <Home/>
-          </Container>
-        }/>
-        <Route path='/sobre' element={
-          <Container customClass="min-height">
-            <Sobre/>
-          </Container>} 
-        />
-        <Route path='/contato' element={
-          <Container customClass="min-height">
-            <Contato/>
-          </Container>}
-        />
-        <Route path='/projetos' element={
-          <Container customClass="min-height">
-            <Projetos/>
-          </Container>}
-        />
-        <Route path='/novoprojeto' element={
-          <Container customClass="min-height">
-            <NovoProjeto/>
-          </Container>}
-        />
-        <Route path='/projeto/:id' element={
-          <Container customClass="min-height">
-            <Projeto/>
-          </Container>}
-        />
-      </Routes>
-      <Footer/>
-    </Router>
+    <Login/>
+    // <Router>
+    //   <NavBar/>
+    //   <Container customClass="min-height">
+    //   <Routes>
+    //     <Route path='/' element={<Home/>}/>
+    //     <Route path='/sobre' element={<Sobre/>}/>
+    //     <Route path='/contato' element={<Contato/>}/>
+    //     <Route path='/projetos' element={<Projetos/>}/>
+    //     <Route path='/novoprojeto' element={<NovoProjeto/>}/>
+    //     <Route path='/projeto/:id' element={<Projeto/>}/>
+    //   </Routes>
+    //   </Container>
+    //   <Footer/>
+    // </Router>
   );
 }
 
