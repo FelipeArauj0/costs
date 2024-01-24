@@ -1,0 +1,136 @@
+.splitScreen{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.left,
+.right{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.left{
+    background: rgba(173, 216, 230, 0.397) url('../../img/login.jpg') no-repeat fixed center ;
+
+}
+
+.left .copy h1{
+    color: #000;
+
+    text-align: center;
+    font-family: Inter;
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.left .copy h1 span{
+    color: #ffbb33;
+    padding:0 .2em;
+    background-color: #222;
+}
+
+.left .copy p{
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.right{
+    background-color: #fff;
+}
+.right form .cardCenter{
+    border-radius: 1.125rem;
+    border: 1px solid #000;
+    padding: 2.5em;
+    background: #cecece;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputContainer label{
+    color: #000;
+    font-family: Inter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding-bottom: .5em;
+}
+
+.inputContainer input{
+    width: 21.5rem;
+    height: 2.75rem;
+    border-radius: 0.625rem;
+    border: 1px solid #000;
+    margin-bottom: .5em;
+    padding: .8em;
+
+}
+
+
+
+.right .cardCenter a{
+    text-decoration: none;
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-top: .2em;
+
+}
+
+.right .cardCenter a{
+    text-decoration: underline;
+}
+
+.right .cardCenter a span{
+    color: blue;
+    
+}
+
+.right .cardCenter .btn{
+    width: 21.5rem;
+    height: 2.5625rem;
+    background-color: #222;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.5s;
+    text-align: center;
+    font-family: Inter;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin: .2em 0;
+    transition: .3s;
+
+}
+
+.right .cardCenter .btn:hover{
+    cursor: pointer;
+    color:#ffbb33;
+    transition: .3s;
+    
+}
