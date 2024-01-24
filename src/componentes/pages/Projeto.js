@@ -11,34 +11,47 @@ import Message from '../layout/Message';
 
 import ServiceForm from '../services/ServiceForm';
 import ServiceCard from '../services/ServiceCard';
+import instance from '../../Conexao-API/Axios';
 
 function Projeto(){
     const {id} = useParams()
     const [project, setProject] = useState([])
-    const [services, setServices] = useState()
+    const [services, setServices] = useState([])
     const [showProjectForm, setShowProjectForm] = useState(false)
     const [showServiceForm, setShowServiceForm] = useState(false)
-
-
+    
     const [message, setMessage] = useState('')
     const [type, setType] = useState()
 
+    const storedToken = localStorage.getItem("@Auth:token")
+
     useEffect(()=>{
-        setTimeout(()=>{
-            fetch(`http://localhost:5000/projetos/${id}`,{
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json'
+
+        const projetoId = async ()=>{
+            try {
+
+                const response = await instance.get(`/projeto/${id}`,{
+                    headers: {
+                        Authorization: `Bearer ${storedToken}`
+                    }
+                })
+                const resServices = await instance.get(`/servicos/${id}`,{
+                    headers: {
+                        Authorization: `Bearer ${storedToken}`
+                    }
+                })
+                setProject(response.data)
+                setServices(resServices.data.menssagem === 'Não tem serviço cadastrado.' ? [] : resServices.data)
+            } catch (error) {
+                console.log(error)
             }
-        })
-            .then(res=>res.json())
-            .then((data)=>{
-                setProject(data)
-                setServices(data.servicos)
-            })
-            .catch((error)=>console.log(error))
-        }, 300)        
-        }, [id])
+        }
+        setTimeout(()=>{
+            projetoId()
+        }, 2000)
+        
+    }, [storedToken, id])      
+        
         function removeService( id, cost ){
             const servicesUpdate = project.servicos.filter((e)=> e.id !== id)
         
@@ -70,7 +83,7 @@ function Projeto(){
             setShowProjectForm(!showProjectForm)
         }
         function toggleServiceForm(){
-            setShowServiceForm(!showProjectForm)
+            setShowServiceForm(!showServiceForm)
         }
 
         function createService(project){
@@ -109,41 +122,57 @@ function Projeto(){
             .catch(error=>console.log(error))
         }
 
-        function editPost(project){
+        async function editPost(project){
            // budget validação
            setMessage('')
 
-           if(project.budget < project.costs){
-                setMessage('O orçamento não pode ser menor que o custo do projeto!')
-                setType('error')
-                setTimeout(() => {setMessage('')}, 2010)
-                return false
-           }
+        //    if(project[0].budget < project[0].costs){
+        //         setMessage('O orçamento não pode ser menor que o custo do projeto!')
+        //         setType('error')
+        //         setTimeout(() => {setMessage('')}, 2010)
+        //         return false
+        //    }
+           try {
+                console.log('asd: ',project)
+                // const response = await instance.patch(`/projetos/${project.id}`,{
 
-           fetch(`http://localhost:5000/projetos/${project.id}`,{
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(project)
-           })
-            .then(res=>res.json())
-            .then((data)=>{
-                setProject(data)
-                setShowProjectForm(false)
-                setMessage('Projeto Atualizado')
-                setType('sucess')
-                setTimeout(() => {setMessage('')}, 2010)
+                // },{
+                //     headers: {
+                //         Authorization: `Bearer ${storedToken}`
+                //     }
+                // })
+                // setProject(data)
+                // setShowProjectForm(false)
+                // setMessage('Projeto Atualizado')
+                // setType('sucess')
+                // setTimeout(() => {setMessage('')}, 2010)
+           } catch (error) {
+                console.log(error)
+           }
+        //    fetch(`http://localhost:5000/projetos/${project.id}`,{
+        //         method: 'PATCH',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(project)
+        //    })
+        //     .then(res=>res.json())
+        //     .then((data)=>{
+        //         setProject(data)
+        //         setShowProjectForm(false)
+        //         setMessage('Projeto Atualizado')
+        //         setType('sucess')
+        //         setTimeout(() => {setMessage('')}, 2010)
 
                
 
-            })
-            .catch(error=>console.log(error))
+        //     })
+        //     .catch(error=>console.log(error))
         }
 
     return (
         <>
-            {project.name ? (
+            {project ? (
                 <div className={style.project_details}>
                     <Container customClass='column'>
                         {message && <Message type={type} msg={message} />}
@@ -155,13 +184,13 @@ function Projeto(){
                             {!showProjectForm ? (
                                 <div className={style.project_info}>
                                     <p>
-                                        <span>Categoria: </span> {project.categories.name}
+                                        <span>Categoria: </span> {project.categories && project.categories.nome_categoria}
                                     </p>
                                     <p>
                                         <span>Total de Orçamento: </span> R${project.budget}
                                     </p>
                                     <p>
-                                        <span>Total de Utilizado: </span> R${project.costs}
+                                        <span>Total de Utilizado: </span> R${project.cost}
                                     </p>
                                 </div>
                             ) : (
@@ -191,7 +220,7 @@ function Projeto(){
                         </div>
                             <h2>Serviços</h2>
                             <Container customClass='start'>
-                                {services.length > 0 && 
+                                {services !== null && services.length > 0 && 
                                     services.map((service)=>(
                                         <ServiceCard
                                             id={service.id}
