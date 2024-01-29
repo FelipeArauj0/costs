@@ -3,24 +3,24 @@ import style from './ProjetoForm.module.css'
 import Input from "../form/Input";
 import Select from "../form/Select";
 import SubmitButton from "../form/SubmitButton";
+import instance from '../../Conexao-API/Axios';
 
 function ProjetoForm({handleSubmit, btntext, dadosProjeto}){
     const [categories, setCategories] = useState([])
     const [ projeto, setProjeto] = useState(dadosProjeto || {})
-    useEffect(()=>{
-        fetch('http://localhost:5000/categorias', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application-json',
-        },
-    })
-    .then((resp)=> resp.json())
-    .then((data)=> {
-        setCategories(data)
-    })
-    .catch((err)=>console.log(`Erro: ${err}`))
-    },[])
 
+    
+    useEffect(()=>{
+        async function categorias(){
+            try {
+                const response = await instance.get('categorias')
+                setCategories(response.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        categorias()
+    })
     const submit = (e)=>{
         e.preventDefault()
         handleSubmit(projeto)
@@ -28,6 +28,7 @@ function ProjetoForm({handleSubmit, btntext, dadosProjeto}){
 
     function handleChange(e){
         setProjeto({...projeto, [e.target.name]: e.target.value})
+        
     }
     function handleCategory(e){
         setProjeto({...projeto, categories: {

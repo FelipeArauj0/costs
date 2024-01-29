@@ -1,0 +1,22 @@
+.btn{
+    font-size: 1.5em;
+    color: #fff;
+    padding:0.4em .4em;
+    background-color: #222;
+    border: 1px solid #505050b0;
+}
+
+.btn:hover{
+    cursor: pointer;
+    color:#ffbb33;
+}
+
+@media only screen and (max-width: 412px){
+    .btn{
+        font-size: 1.5em;
+        color: #fff;
+        padding:0.4em .4em;
+        background-color: #222;
+        border: 1px solid #505050b0;
+    }
+}

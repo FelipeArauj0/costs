@@ -1,15 +1,51 @@
 {
   "projetos": [
     {
-      "name": "Meu novo projeto teste",
-      "budget": "1500",
+      "name": "Novo projeto teste",
+      "budget": "5000",
+      "categories": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "costs": 250,
+      "servicos": [
+        {
+          "name": "Servico teste",
+          "cost": "250",
+          "description": "Breve descrição serviço teste",
+          "id": "246faf83-a885-40c9-a21e-6c8ce4029de7"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "name": "projeto API antiga ainda",
+      "budget": "5000",
+      "categories": {
+        "id": "2",
+        "name": "Desenvolvimento"
+      },
+      "costs": 200,
+      "servicos": [
+        {
+          "name": "API antiga servico",
+          "cost": "200",
+          "description": "breve descrição api antiga",
+          "id": "fa4221ca-af4f-457c-8fc8-7e878206dda9"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "name": "novo projeto API externa",
+      "budget": "1200",
       "categories": {
         "id": "2",
         "name": "Desenvolvimento"
       },
       "costs": 0,
       "servicos": [],
-      "id": 1
+      "id": 3
     }
   ],
   "categorias": [

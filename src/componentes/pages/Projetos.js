@@ -5,55 +5,61 @@ import LinkButton from '../layout/LinkButton';
 import Container from '../layout/Container';
 import loading from '../layout/Loading';
 
-import { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import { useState, useEffect, useContext } from 'react';
+
 
 import ProjetoCard from '../projetos/ProjetoCard';
 import Loading from '../layout/Loading';
+import instance from '../../Conexao-API/Axios';
+
 
 function Projetos(){
     const [projects, setProjects] = useState([])
     const [removeLoading, setRemoveLoading] = useState(false)
     const [projectMessage, setProjectMessage] = useState('')
+    
+    const storedToken = localStorage.getItem("@Auth:token")
+    
+    
 
-    const location = useLocation();
-
+    // console.log('token: projetos:  ', storedToken)
     let message = ''
-    if(location.state){
-        message = location.state.menssagem;
-    }
+    
 
-    useEffect(()=>{
-        setTimeout(()=>{
-            fetch('http://localhost:5000/projetos',{
-            method: 'GET',
+    const carregarProjetos = async () => {
+        try {
+          const response = await instance.get('/projetos', {
             headers: {
-                'Content-type': 'application/json'
+              Authorization: `Bearer ${storedToken}`
             }
-        }).then(res=> res.json())
-            .then((data) => {
-                setProjects(data)
-                setRemoveLoading(true)
+          });
+                    
+          setProjects(response.data);
+          setRemoveLoading(true);
+        } catch (error) {
+          console.log('Erro ao carregar projetos:', error);
+        }
+      };
+
+    useEffect(() => {
+        carregarProjetos();
+      }, []);
+    
+    const removeProject = async (id)=>{
+        try {
+            const response = await instance.delete(`/projetos/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${storedToken}`
+                }
             })
-        .catch(error => console.log(error))
-        }, 2000)
-    },[])
-
-    function removeProject(id){
-        fetch(`http://localhost:5000/projetos/${id}`,{
-            method: 'DELETE',
-            headers: {
-                'Content-type': 'application/json'
-            }
-        }).then(res=>res.json)
-        .then(()=>{
             setTimeout(() => {setProjectMessage('')}, 2010)
-
             setProjects(projects.filter((project)=> project.id !== id))
-            setProjectMessage('Projeto removido com sucesso')
             
-        })
-        .catch((error)=>console.log(error))
+            setProjectMessage('Projeto removido com sucesso')
+        } catch (error) {
+          console.log('Erro ao carregar projetos:', error);
+            
+        }
     }
 
     return (
@@ -78,7 +84,7 @@ function Projetos(){
                     ))
                 }
                 {!removeLoading && <Loading/>}
-                {removeLoading && projects.length === 0 && (
+                {removeLoading && projects.length === 0 || projects.length === undefined && (
                     <p>Não há projetos cadastrados</p>
                 )}
             </Container>

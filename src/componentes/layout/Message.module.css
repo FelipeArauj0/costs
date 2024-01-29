@@ -20,3 +20,15 @@
     background-color: #F8D7DA;
     border-color: #F5C6CB;
 }
+
+@media only screen and (max-width: 412px){
+    .message{
+        width: 100%;
+        padding: 1em;
+        border:1px solid #000;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: .2em;
+        border-radius: 5px;
+    }
+}

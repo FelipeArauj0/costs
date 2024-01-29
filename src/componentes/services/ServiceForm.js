@@ -10,14 +10,15 @@ function ServiceForm({handleSubmit, btnText, projectData}){
     const [service, setService] = useState([])
     function submit(e){
         e.preventDefault()
-        projectData.servicos.push(service)
-        handleSubmit(projectData)
+        handleSubmit(service)
     }
 
     function handleChange(e){
         setService({...service, [e.target.name]: e.target.value})
-        console.log('serviço: ',service);
+        
+        
     }
+    
     return (
         <form onSubmit={submit} className={style.form}>
             <Input 
