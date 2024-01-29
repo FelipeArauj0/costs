@@ -9,3 +9,15 @@
 .btn:hover{
     color:#ffbb33;
 }
+
+@media only screen and (max-width: 412px){
+    .btn{
+        background-color: #222;
+        color: #fff;
+        font-size: 1em;
+        padding: 0.5em .8em;
+        text-decoration: none;
+        transition: 0.5s;
+        
+    } 
+}

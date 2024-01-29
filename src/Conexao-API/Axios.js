@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: "https://costs.cyclic.app/",
+    baseURL: "https://drab-hosiery-moth.cyclic.app/",
     timeout: 2500
 });
 

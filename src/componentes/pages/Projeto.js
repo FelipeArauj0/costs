@@ -1,5 +1,5 @@
 import style from './Projeto.module.css'
-import {useParams} from 'react-router-dom'
+import {Navigate, useNavigate, useParams} from 'react-router-dom'
 import { useState, useEffect } from 'react';
 
 import { v4 as uuiudv4} from 'uuid'
@@ -14,6 +14,7 @@ import ServiceCard from '../services/ServiceCard';
 import instance from '../../Conexao-API/Axios';
 
 function Projeto(){
+    const navigate = useNavigate()
     const {id} = useParams()
     const [project, setProject] = useState([])
     const [services, setServices] = useState([])
@@ -52,32 +53,29 @@ function Projeto(){
         
     }, [storedToken, id])      
         
-        function removeService( id, cost ){
-            const servicesUpdate = project.servicos.filter((e)=> e.id !== id)
-        
+        async function removeService( id, cost ){
+            const servicesUpdate = services.filter((e)=> e.id !== id) 
             const projectUpdated = project
-            
-            projectUpdated.servicos = servicesUpdate
-        
-            projectUpdated.costs = parseFloat(projectUpdated.costs) - parseFloat(cost) 
-
-            fetch(`http://localhost:5000/projetos/${projectUpdated.id}`,{
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(projectUpdated)
-            })
-                .then(res=>res.json)
-                .then((data)=>{
-                    setTimeout(() => {setMessage('')}, 2010)
-
-                    setProject(projectUpdated)
-                    setServices(servicesUpdate)
-                    setMessage('Serviço removido com sucesso.')
-                    setType('sucess')
+            try {
+                const resp = await instance.delete(`/servicos/${id}`,{
+                    headers: {
+                        Authorization: `Bearer ${storedToken}`
+                    }
                 })
-                .catch(error=>console.log(error))
+                setProject(projectUpdated)
+                setServices(servicesUpdate)
+                setMessage('Serviço removido com sucesso.')
+                setType('sucess')
+                setTimeout(() => {
+                    setMessage('')
+                }, 2010)
+                setTimeout(()=>{
+                    navigate(`/projeto/${id}`)
+                }, 500)
+                
+            } catch (error) {
+                console.log(error)
+            }
         }
         function toggleProjectForm(){
             setShowProjectForm(!showProjectForm)
@@ -86,93 +84,86 @@ function Projeto(){
             setShowServiceForm(!showServiceForm)
         }
 
-        function createService(project){
-            const lastService = project.servicos[project.servicos.length - 1]
-
-            lastService.id = uuiudv4()
-
-            const lastServiceCost = Number(lastService.cost)
-            const newCost = Number(project.costs) + lastServiceCost
-            
-            if(newCost > parseFloat(project.budget) || newCost < 0){
-                setMessage('Orçamento inválido, verifique o valor do serviço')
-                setType('error')
-                setTimeout(() => {setMessage('')}, 2010)
-
-                project.servicos.pop()
-                return false
-            }
-            
-            project.costs = newCost
-
-            fetch(`http://localhost:5000/projetos/${project.id}`,{
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(project)
-           })
-            .then(res=>res.json())
-            .then((data)=>{
+        async function createService(project,){
+            setShowServiceForm(true)
+            try {   
+                const res = await instance.post(`/servicos/${id}`,{
+                    name: project.name,
+                    cost: project.cost, 
+                    description: project.description,
+                    projetos_id: project.id
+                },{
+                    headers: {
+                        Authorization: `Bearer ${storedToken}`
+                    }
+                })
                 setShowServiceForm(false)
                 setMessage('Serviço Adicionado')
                 setType('sucess')
-                setTimeout(() => {setMessage('')}, 2010)
-            })
-            .catch(error=>console.log(error))
+                setTimeout(() => {setMessage('')}, 5010)
+                setTimeout(()=>{
+                    navigate(`/projeto/${id}`)
+                }, 500)
+            
+                 
+        }catch(error){
+            console.log(error)
+            if(error.message === 'Request failed with status code 400'){
+                setMessage('Orçamento inválido, verifique o valor do serviço')
+                setType('error')
+                setTimeout(() => {
+                    setMessage('')
+                    alert('Orçamento inválido, verifique o valor do serviço')
+                }, 3010)
         }
 
-        async function editPost(project){
-           // budget validação
-           setMessage('')
-
-        //    if(project[0].budget < project[0].costs){
-        //         setMessage('O orçamento não pode ser menor que o custo do projeto!')
-        //         setType('error')
-        //         setTimeout(() => {setMessage('')}, 2010)
-        //         return false
-        //    }
-           try {
-                console.log('asd: ',project)
-                // const response = await instance.patch(`/projetos/${project.id}`,{
-
-                // },{
-                //     headers: {
-                //         Authorization: `Bearer ${storedToken}`
-                //     }
-                // })
-                // setProject(data)
-                // setShowProjectForm(false)
-                // setMessage('Projeto Atualizado')
-                // setType('sucess')
-                // setTimeout(() => {setMessage('')}, 2010)
-           } catch (error) {
-                console.log(error)
-           }
-        //    fetch(`http://localhost:5000/projetos/${project.id}`,{
-        //         method: 'PATCH',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: JSON.stringify(project)
-        //    })
-        //     .then(res=>res.json())
-        //     .then((data)=>{
-        //         setProject(data)
-        //         setShowProjectForm(false)
-        //         setMessage('Projeto Atualizado')
-        //         setType('sucess')
-        //         setTimeout(() => {setMessage('')}, 2010)
-
-               
-
-        //     })
-        //     .catch(error=>console.log(error))
+            
         }
+
+    }  
+    async function editPost(project) {
+        // budget validação
+        setMessage('');
+
+        if (Number(project.budget) < Number(project.costs)) {
+            setMessage('O orçamento não pode ser menor que o custo do projeto!');
+            setType('error');
+            setTimeout(() => { setMessage(''); }, 6010);
+            return false;
+        }
+        try {
+            const response = await instance.patch(`/projetos/${project.id}`, {
+                name: project.name,
+                budget: project.budget,
+                categories_id: project.categories && project.categories.id
+            }, {
+                headers: {
+                    Authorization: `Bearer ${storedToken}`
+                }
+            });
+
+            setProject(project);
+            setShowProjectForm(false);
+            setMessage('Projeto Atualizado');
+            setType('sucess');
+
+            setTimeout(() => {
+                setMessage('');
+            }, 6010);
+            setTimeout(() => {
+                navigate(`/projeto/${project.id}`);
+                window.location.reload();
+            }, 500);
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }  
 
     return (
         <>
-            {project ? (
+            {project.name ? (
                 <div className={style.project_details}>
                     <Container customClass='column'>
                         {message && <Message type={type} msg={message} />}
@@ -238,9 +229,11 @@ function Projeto(){
                 </div>
             ) : (
                 <Loading/>
+                
             )}
         </>
     )
 }
+
 
 export default Projeto;

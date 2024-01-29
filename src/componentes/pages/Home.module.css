@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: center;
     padding:4em;
-
+    
 }
 
 .home_container h1{
@@ -28,3 +28,27 @@
     width: 350px;
     margin: 2em 0;
 }
+
+@media only screen and (max-width: 412px) {
+    .home_container{
+        width: 100%;
+        padding:2em;
+    }
+    .home_container h1{
+        width: 100%;
+        font-size: 1.8em;
+        margin-bottom: .5em;
+    }
+    .home_container p{
+        font-size: 1em;
+        margin-bottom: .5em;
+
+    }
+    .home_container img {
+        width: 80%; 
+        max-width: 350px; 
+        margin: .8em 0;
+
+    }
+}
+

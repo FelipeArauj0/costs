@@ -15,10 +15,7 @@ export const AuthProvider = ({ children }) => {
           email,
           senha
       })
-
-      if(response.data.error){
-        alert(response.data.error)
-      }
+      console.log('responseresponse: ',response)
       const token = response.data.token
       setUser(response.data)
       
@@ -29,23 +26,29 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("@Auth:token", token)
       localStorage.setItem("@Auth:user", JSON.stringify(response.data))
     } catch (err) {
-      if(err.request.status === 400){
-          setMessage(`${err.response.data.menssagem}`)
-          setType('error')
-          setTimeout(() => {setMessage('')}, 2010)
+      if(err.response.status === 400 || err.response.status === 404){
+        return {
+        menssagem: err.response.data.menssagem,
+        type: 'error'
       }
+    }
 
-      if(err.request.status === 404){
-          setMessage(`${err.response.data.menssagem}`)
-          setType('error')
-          setTimeout(() => {setMessage('')}, 2010)
-      }
-      if(err.request.status === 500){
+      if(err.response.status === 500){
           return console.log(err.response.data)
+      } else {
+        return (
+          {
+            menssagem: err.response.data.menssagem,
+            type: 'error'
+        }
+          
+        )
+
       }
-      console.log("ops! ocorreu um erro: ", err)
+    }
+      
   }
-  }
+  
 
   const signout = () => {
     // Limpe as informações de autenticação
@@ -67,6 +70,7 @@ export const AuthProvider = ({ children }) => {
       }
       loadingStoredData()
     }, [])
+    
     const authContextValue = {
       user,
       signed: !!user,
