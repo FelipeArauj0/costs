@@ -34,7 +34,6 @@ function NavBar(){
                 <li className={styles.item}><Link to="/projetos">Projetos</Link></li>
                 ) : null}
                 <li className={styles.item}><Link to="/contato">Contato</Link></li>
-                <li className={styles.item}><Link to="/sobre">Sobre</Link></li>
                 <li className={styles.item}><Link to="/login">Login</Link></li>
                 {userLogado ? <LogoutButton/> : null}
             </ul>

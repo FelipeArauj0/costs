@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("@Auth:token", token)
       localStorage.setItem("@Auth:user", JSON.stringify(response.data))
     } catch (err) {
-      if(err.response.status === 400 || err.response.status === 404){
+      if(err.response.status !== 200 || err.response.status !== 500){
         return {
         menssagem: err.response.data.menssagem,
         type: 'error'

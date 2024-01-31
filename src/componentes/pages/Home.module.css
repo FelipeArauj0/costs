@@ -11,7 +11,7 @@
 }
 
 .home_container h1{
-    font-size: 2.8em;
+    font-size: 2.6em;
     margin-bottom: .3em;
 }
 
@@ -28,13 +28,15 @@
 }
 
 .home_container p{
-    margin-bottom: 1.3em;
+    margin-bottom: 1em;
     color: #7b7b7b;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.2em;
+
 }
 .home_container div{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: 100vw;
     align-items: center;
@@ -43,11 +45,25 @@
 .home_container div > p{
     text-align: center;
 }
+
+.home_container div > a > svg{
+    margin-right: .5em;
+}
+
+.home_container div > a{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    color: #ffbb33;
+    padding:.5em;
+    background-color: #222;
+}
 .home_container .text{
     margin: 1.2em 0px 1.2em 0px;
     color: #7b7b7b;
     text-align: justify;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 .home_container .hr{
@@ -84,7 +100,7 @@
 }
 
 .home_container ul li > a:hover{
-    color: #4466c5;
+    color: #ffbb33;
 }
 
 .home_container ul li span{
@@ -97,23 +113,56 @@
 @media only screen and (max-width: 412px) {
     .home_container{
         width: 100%;
-        padding:2em;
+        height: 100%;
+        padding: 2em 2em 0px 2em;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     .home_container h1{
         width: 100%;
-        font-size: 1.8em;
+        font-size: 2em;
         margin-bottom: .5em;
+        text-align: center;
     }
     .home_container p{
-        font-size: 1em;
+        font-size: 1.1em;
         margin-bottom: .5em;
 
+    }
+    .home_container .text{
+        margin: 4em 0px 4.8em 0px;
+        color: #7b7b7b;
+        text-align: end;
+        font-size: 1.2em;
     }
     .home_container img {
         width: 80%; 
         max-width: 350px; 
         margin: .8em 0;
 
+    }
+
+    .home_container ul li{
+        font-size: 1.2em;
+        color: #7b7b7b;
+        padding: 0 1.2em;
+        text-align: start;
+    }
+
+    .home_container ul li > a{
+        text-decoration: underline;
+        color: #a77c28;
+        transition: .5s;
+    }
+
+    .home_container div{
+        display: flex;
+        justify-content: center;
+        width: 100vw;
+        align-items: center;
+        padding: 1em;
     }
 }
 

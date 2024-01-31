@@ -4,7 +4,6 @@ import NavBar from './componentes/layout/NavBar';
 import Container from './componentes/layout/Container';
 import Footer from './componentes/layout/Footer';
 import Home from './componentes/pages/Home';
-import Sobre from './componentes/pages/Sobre';
 import Contato from './componentes/pages/Contato';
 import Projetos from './componentes/pages/Projetos';
 import NovoProjeto from './componentes/pages/NovoProjeto';
@@ -24,7 +23,6 @@ function App() {
           <Routes>
             {/* Rotas públicas acessíveis a todos */}
             <Route path="/" element={<Home />} />
-            <Route path="/sobre" element={<Sobre />} />
             <Route path="/contato" element={<Contato />} />
 
             {/* Página de login e cadastro como rotas públicas */}

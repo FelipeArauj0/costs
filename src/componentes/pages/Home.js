@@ -1,8 +1,10 @@
 import styles from './Home.module.css';
 import savings from '../../img/savings.svg';
 import LinkButton from '../layout/LinkButton';
+import { FaGithub } from 'react-icons/fa';
 function Home(){
     const link = "https://www.youtube.com/watch?v=FXqX7oof0I4&list=PLnDvRpP8BneyVA0SZ2okm-QBojomniQVO&pp=iAQB"
+    const gitProjeto = "https://github.com/FelipeArauj0/costs"
     return (
         <section className={styles.home_container}>
             <h1>Bem-vindo ao <span>Costs</span></h1>
@@ -25,6 +27,7 @@ function Home(){
             </ul>
             <div>
                 <p>Este projeto não é apenas uma ferramenta de gestão de custos;<br/> é uma oportunidade para aprimorar suas habilidades como desenvolvedor.</p>
+                <a href={gitProjeto} target='_blank'><FaGithub/>GitHub do projeto</a>
             </div>
 
         </section>

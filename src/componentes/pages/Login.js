@@ -45,7 +45,7 @@ function Login(){
         <section className={style.splitScreen}>
             <div className={style.left}>
                 <Alert className={style.alert} variant="filled" severity="info">
-                    Aplicativo está em faze de testes!{<br/>} O E-mail ainda não está sendo validado pelo nosso sistema por esse motivo a <span>esqueci minha senha</span> ainda não esta funcionando.{<br/>}
+                    Aplicativo está em fase de testes!{<br/>} O E-mail ainda não está sendo validado pelo nosso sistema por esse motivo a <span>esqueci minha senha</span> ainda não esta funcionando.{<br/>}
                     Caso tenha esquecido sua senha entre em <span>contato com nossos desenvolvedores</span> e receberá ajuda para acessar sua conta.
                 </Alert>
                 <section className={style.copy}>
