@@ -69,13 +69,13 @@ function Cadastrar(){
                 <div className={style.right}>
                     <div className={style.right}>
                     
-                        {message && <Message type={type} msg={message} />}
                         <form>
                             <section className={style.cardCenter}>
                                 <section className={style.copy}>
                                     <h2>Cadastrar</h2>
                                 </section>
                                 <div className={`${style.inputContainer} ${style.email}`}>
+                                    {message && <Message type={type} msg={message} />}
                                     <label for="email">E-mail</label>
                                     <input
                                         type="email"

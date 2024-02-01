@@ -1,12 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import instance from '../Conexao-API/Axios';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)  
-  const [message, setMessage] = useState('')
-  const [type, setType] = useState()
+  
   
   const signin = async ({email, senha})=>{
 
@@ -25,26 +24,32 @@ export const AuthProvider = ({ children }) => {
       
       localStorage.setItem("@Auth:token", token)
       localStorage.setItem("@Auth:user", JSON.stringify(response.data))
+
+      return response.data;
     } catch (err) {
-      if(err.response.status !== 200 || err.response.status !== 500){
-        return {
-        menssagem: err.response.data.menssagem,
-        type: 'error'
+      const responseError = ()=>{
+        if(err.response && (err.response.status === 400 || err.response.status === 404)){
+          return ({
+          menssagem: err.response.data.mensagem ? err.response.data.mensagem : err.response.data.menssagem,
+          type: 'error'
+        })
       }
-    }
-
-      if(err.response.status === 500){
-          return console.log(err.response.data)
-      } else {
-        return (
-          {
-            menssagem: err.response.data.menssagem,
-            type: 'error'
-        }
-          
-        )
-
+  
+        if(err.response.status === 500){
+            return console.log(err)
+        } else {
+          return (
+            {
+              menssagem: 'Erro desconhecido',
+              type: 'error'
+          }
+            
+          )
+  
+        }  
       }
+      const resp = responseError(err)
+      return resp;
     }
       
   }
