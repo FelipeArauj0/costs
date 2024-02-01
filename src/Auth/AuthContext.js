@@ -14,7 +14,6 @@ export const AuthProvider = ({ children }) => {
           email,
           senha
       })
-      console.log('responseresponse: ',response)
       const token = response.data.token
       setUser(response.data)
       

@@ -32,21 +32,22 @@
 @media only screen and (max-width: 412px){
     .navbar{
         display:flex;
-        justify-content: space-between;
+        flex-direction: row;
         align-items: center;
+        justify-content: space-between;
         background: #222;
         padding: 1em;
         overflow: hidden;
         
     }
     .navbar .img{
-        width: 100px;
+        width: 50px;
     }
     .list{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         list-style: none;
-        align-items: end;
+        align-items: center;
         
     }
     .item{

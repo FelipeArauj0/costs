@@ -6,6 +6,7 @@ import LogoutButton from "./LogoutButton"
 import Container from "./Container";
 import styles from './NavBar.module.css';
 import logo from '../../img/costs_logo.png';
+import AccountMenu from "./AccountMenu";
 
 function NavBar(){
     const authContext = useContext(AuthContext)
@@ -34,8 +35,10 @@ function NavBar(){
                 <li className={styles.item}><Link to="/projetos">Projetos</Link></li>
                 ) : null}
                 <li className={styles.item}><Link to="/contato">Contato</Link></li>
+                {userLogado ? null : (
                 <li className={styles.item}><Link to="/login">Login</Link></li>
-                {userLogado ? <LogoutButton/> : null}
+                )}
+                {userLogado ? /*<LogoutButton/>*/ <AccountMenu/> : null}
             </ul>
         </Container>
     </nav>

@@ -1,0 +1,18 @@
+.customPaper,.MuiMenuPaper, .menuItem::before{
+    overflow: visible;
+    filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.32));
+    background-color: #222;
+
+}
+
+.iconLogout{
+    color:#fff;
+}
+
+.btn{
+    font-size: small;
+    overflow: visible;
+    filter: drop-shadow(0px 2px 8px rgba(0,0,0,0.32));
+    width: 32px;
+    height: 32px;
+}
