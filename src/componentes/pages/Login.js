@@ -93,7 +93,7 @@ function Login(){
                         </div>
                         <a href='#'>Esqueci minha <span>senha</span></a>
                         <button className={style.btn} type='submit'>Continuar</button>
-                        <Link to='cadastrar'><a href='#'>Ainda não sou cliente <span>inscrever-se</span></a></Link>
+                        <Link to='cadastrar'>Ainda não sou cliente <span>inscrever-se</span></Link>
                     </section>
                 </form>
                 
