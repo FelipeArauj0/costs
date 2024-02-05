@@ -3,6 +3,7 @@ import style from './Login.module.css'
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Auth/AuthContext';
 import Message from '../layout/Message';
+import { Link } from "react-router-dom";
 import Alert from '@mui/material/Alert';
 function Login(){
     const navigate = useNavigate()
@@ -90,9 +91,9 @@ function Login(){
                                  value={dados.password ? dados.password : ''}
                                 />
                         </div>
-                        <a href='http://localhost:3000/Login'>Esqueci minha <span>senha</span></a>
+                        <a href='#'>Esqueci minha <span>senha</span></a>
                         <button className={style.btn} type='submit'>Continuar</button>
-                        <a href='http://localhost:3000/Cadastrar'>Ainda não sou cliente <span>inscrever-se</span></a>
+                        <Link to='cadastrar'><a href='#'>Ainda não sou cliente <span>inscrever-se</span></a></Link>
                     </section>
                 </form>
                 
