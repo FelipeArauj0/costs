@@ -5,8 +5,10 @@ import { AuthContext } from '../../Auth/AuthContext';
 import Message from '../layout/Message';
 import { Link } from "react-router-dom";
 import Alert from '@mui/material/Alert';
+import 'dotenv';
 function Login(){
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const url = process.env.URL_BASE
 
     const [message, setMessage] = useState('')
     const [type, setType] = useState()
@@ -93,8 +95,8 @@ function Login(){
                         </div>
                         <a href='#'>Esqueci minha <span>senha</span></a>
                         <button className={style.btn} type='submit'>Continuar</button>
-                        <Link to='cadastrar'>Ainda não sou cliente <span>inscrever-se</span></Link>
-                    </section>
+                            <a href={`${url}/cadastrar`} >Ainda não sou cliente <span>inscrever-se</span></a>
+                        </section>
                 </form>
                 
             </div>
