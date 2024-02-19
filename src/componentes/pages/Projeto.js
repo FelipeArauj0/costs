@@ -131,6 +131,8 @@ function Projeto(){
             setTimeout(() => { setMessage(''); }, 6010);
             return false;
         }
+        console.log('project.budget: ',project.budget)
+        console.log('project.costs: ',project.costs)
         try {
             const response = await instance.patch(`/projetos/${project.id}`, {
                 name: project.name,
