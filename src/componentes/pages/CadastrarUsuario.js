@@ -6,10 +6,9 @@ import Message from '../layout/Message';
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import Loading from '../layout/Loading';
-import 'dotenv'
+
 function Cadastrar(){
     const navigate = useNavigate()
-    const url = process.env.URL_BASE
 
     const [ dados, setDados] = useState({})
 
@@ -98,7 +97,7 @@ function Cadastrar(){
                                         value={dados.password ? dados.password : ''} />
                                 </div>
                                 <button className={style.btn} onClick={submit}>Cadastrar</button>
-                                <a href={`${url}/cadastrar`}>Já sou cliente <span>Fazer login</span></a>
+                                <a href={`#`}>Já sou cliente <span>Fazer login</span></a>
                             </section>
                         </form>
                     </div>
