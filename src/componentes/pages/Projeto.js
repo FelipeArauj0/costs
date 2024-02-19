@@ -125,14 +125,14 @@ function Projeto(){
         // budget validação
         setMessage('');
 
-        if (Number(project.budget) < Number(project.costs)) {
+        if (Number(project.budget) < Number(project.cost)) {
             setMessage('O orçamento não pode ser menor que o custo do projeto!');
             setType('error');
             setTimeout(() => { setMessage(''); }, 6010);
             return false;
         }
         console.log('project: ',project)
-        console.log('project.costs: ',project.costs)
+        console.log('project.cost: ',project.cost)
         try {
             const response = await instance.patch(`/projetos/${project.id}`, {
                 name: project.name,
