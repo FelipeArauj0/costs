@@ -97,7 +97,7 @@ function Cadastrar(){
                                         value={dados.password ? dados.password : ''} />
                                 </div>
                                 <button className={style.btn} onClick={submit}>Cadastrar</button>
-                                <a href={`#`}>Já sou cliente <span>Fazer login</span></a>
+                                <Link to="/login">Já sou cliente <span>Fazer login</span></Link>
                             </section>
                         </form>
                     </div>
