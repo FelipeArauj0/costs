@@ -141,7 +141,7 @@ function Projeto(){
                     Authorization: `Bearer ${storedToken}`
                 }
             });
-
+            console.log(response)
             setProject(project);
             setShowProjectForm(false);
             setMessage('Projeto Atualizado');
